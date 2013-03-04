@@ -1,0 +1,27 @@
+{
+  "name": "frood",
+  "title": "Frood",
+  "description": "A really amazingly together way to build web forms.",
+  "version": "0.0.2",
+  "homepage": "https://github.com/Ben/frood",
+  "author": {
+    "name": "Ben Boyle",
+    "email": "benjamins.boyle@gmail.com",
+    "url": "http://ultimate.benboyle.id.au/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Ben/frood.git"
+  },
+  "bugs": "https://github.com/Ben/frood/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/Ben/frood/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "~1.7.2"
+  },
+  "keywords": [ "forms" ]
+}
