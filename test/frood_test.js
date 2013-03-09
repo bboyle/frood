@@ -1,4 +1,4 @@
-(function( $ ) {
+(function() {
 	'use strict';
 
 	/*
@@ -22,5 +22,11 @@
 			throws(block, [expected], [message])
 	*/
 
+	module( 'pending' );
 
-}( jQuery ));
+	test( 'pending', 1, function() {
+		ok( 'pending', 'initial qunit framework' );
+	});
+
+
+}());

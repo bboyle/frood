@@ -15,6 +15,7 @@ module.exports = function( grunt ) {
 		clean: {
 			files: [ 'dist' ]
 		},
+		// production pipeline tasks
 		concat: {
 			options: {
 				banner: '<%= banner %>',
@@ -33,6 +34,16 @@ module.exports = function( grunt ) {
 				src: '<%= concat.dist.dest %>',
 				dest: 'dist/<%= pkg.name %>.min.js'
 			},
+		},
+		// code quality tasks
+		cucumber: {
+			test: {
+				features: 'features'
+			},
+			options: {
+				prefix: 'bundle exec',
+				profile: 'grunt'
+			}
 		},
 		qunit: {
 			files: [ 'test/**/*.html' ]
@@ -80,8 +91,11 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-qunit' );
 	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	grunt.loadNpmTasks( 'grunt-rcukes' );
 
 	// Default task.
-	grunt.registerTask( 'default', [ 'jshint', 'qunit', 'clean', 'concat', 'uglify' ]);
+	grunt.registerTask( 'test', [ 'jshint', 'qunit', 'cucumber' ]);
+	grunt.registerTask( 'produce', [ 'clean', 'concat', 'uglify' ]);
+	grunt.registerTask( 'default', [ 'test', 'produce' ]);
 
 };

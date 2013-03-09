@@ -17,16 +17,25 @@ GEM
       gherkin (~> 2.11.6)
       multi_json (~> 1.3)
     diff-lcs (1.2.1)
+    eventmachine (1.0.1)
     eventmachine (1.0.1-java)
+    faye-websocket (0.4.7)
+      eventmachine (>= 0.12.0)
     faye-websocket (0.4.7-java)
       eventmachine (>= 0.12.0)
+    ffi (1.4.0)
     ffi (1.4.0-java)
+    gherkin (2.11.6)
+      json (>= 1.7.6)
     gherkin (2.11.6-java)
       json (>= 1.7.6)
+    http_parser.rb (0.5.3)
     http_parser.rb (0.5.3-java)
+    json (1.7.7)
     json (1.7.7-java)
     mime-types (1.21)
     multi_json (1.6.1)
+    nokogiri (1.5.6)
     nokogiri (1.5.6-java)
     phantomjs (1.8.1.0)
       poltergeist
@@ -43,6 +52,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip
       websocket (~> 1.0.4)
+    syntax (1.0.0)
     watir-webdriver (0.6.2)
       selenium-webdriver (>= 2.18.0)
     websocket (1.0.7)
@@ -55,4 +65,5 @@ PLATFORMS
 DEPENDENCIES
   cucumber
   phantomjs
+  syntax
   watir-webdriver
