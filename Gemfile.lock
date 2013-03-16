@@ -61,6 +61,7 @@ GEM
 
 PLATFORMS
   java
+  ruby
 
 DEPENDENCIES
   cucumber
