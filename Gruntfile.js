@@ -82,6 +82,15 @@ module.exports = function( grunt ) {
 				tasks: [ 'jshint:test', 'qunit' ]
 			},
 		},
+		// local server
+		connect: {
+			cucumber: {
+				options: {
+					port: 9009,
+					base: 'src'
+				}
+			}
+		}
 	});
 
 	// These plugins provide necessary tasks.
@@ -91,10 +100,11 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-qunit' );
 	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	grunt.loadNpmTasks( 'grunt-contrib-connect' );
 	grunt.loadNpmTasks( 'grunt-rcukes' );
 
 	// Default task.
-	grunt.registerTask( 'test', [ 'jshint', 'qunit', 'cucumber' ]);
+	grunt.registerTask( 'test', [ 'jshint', 'qunit', 'connect:cucumber', 'cucumber' ]);
 	grunt.registerTask( 'produce', [ 'clean', 'concat', 'uglify' ]);
 	grunt.registerTask( 'default', [ 'test', 'produce' ]);
 

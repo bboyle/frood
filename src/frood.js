@@ -6,8 +6,44 @@
  * Licensed under the MIT license.
  */
 
-(function() {
+(function( $ ) {
 	'use strict';
 
 
-}());
+	// button handler
+	$( document ).on( 'click', 'button', function() {
+		var button = $( this );
+
+		switch ( button.text() ) {
+			case 'New form':
+				// create textarea for user to enter questions
+				(function() {
+					var textarea = $( '<textarea></textarea>' );
+					button.after( textarea );
+					textarea.before( 'List your questions below:' );
+					textarea.focus();
+					textarea.after( '<button>Create form</button>' );
+				}());
+			break;
+
+			case 'Create form':
+				// create a form
+				(function() {
+					var form = $( '<form></form>' ),
+						questions = $( 'textarea' ).val().split( '\n' );
+
+					$.each( questions, function( index, label ) {
+						var id = label.replace( /\s+/, '-' ).toLowerCase();
+						form.append( '<label for="' + id + '">' + label + '</label>' );
+						form.append( '<input id="' + id + '">' );
+					});
+
+					button.after( form );
+				}());
+			break;
+		}
+	});
+
+
+
+}( jQuery ));
