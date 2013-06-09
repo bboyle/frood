@@ -1,5 +1,5 @@
-/*! Frood - v0.0.2 - 2013-03-16
-* https://github.com/Ben/frood
+/*! Frood - v0.0.2 - 2013-06-09
+* https://github.com/bboyle/frood
 * Copyright (c) 2013 Ben Boyle; Licensed MIT */
 (function( $ ) {
 	'use strict';
