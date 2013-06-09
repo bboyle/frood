@@ -10,6 +10,11 @@ Before do
   @browser = browser
 end
  
+After do |scenario|
+  browser.screenshot.save 'features/screenshot.png'
+  embed 'screenshot.png', 'image/png'
+end
+
 at_exit do
   browser.close
 end
