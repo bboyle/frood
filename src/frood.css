@@ -1,21 +1,19 @@
 /* drag and drop */
 [draggable]:hover {
-	position: relative;
-	top: .2em;
-	left: .2em;
-	box-shadow: .1em .3em .5em .3em #ccc;
+	box-shadow: .1em .1em .1em .1em #ccc;
 	cursor: move;
 	cursor: grab;
 	cursor: -moz-grab;
 }
 [draggable]:active {
+	position: relative;
 	background: #eee; /* inherit from form? */
+	top: .2em;
+	left: .2em;
+	box-shadow: .1em .3em .5em .3em #ccc;
 	z-index: 2;
 	cursor: -moz-grabbing;
-	transform: rotate( 2deg );
-}
-.dragging {
-	opacity: .4;
+	/*transform: rotate( 2deg );*/
 }
 
 /* drop targets */
@@ -26,6 +24,7 @@
 	outline: .2em dashed #ccc;
 	display: block;
 	height: 1em;
-	padding: .5em;
+	padding: 2em;
+	margin-bottom: 1em;
 	background: #fff;
 }

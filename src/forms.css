@@ -2,6 +2,11 @@ form {
 	background: #eee;
 }
 
+input,
+textarea {
+	padding: .3em;
+}
+
 label {
 	display: block;
 }

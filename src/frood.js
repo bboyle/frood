@@ -17,7 +17,6 @@
 	function handleDragStart( e ) {
 		/*jshint validthis:true */
 		var question = $( this );
-		question.addClass( 'dragging' );
 
 		dragSrcEl = question;
 
