@@ -1,0 +1,31 @@
+/* drag and drop */
+[draggable]:hover {
+	position: relative;
+	top: .2em;
+	left: .2em;
+	box-shadow: .1em .3em .5em .3em #ccc;
+	cursor: move;
+	cursor: grab;
+	cursor: -moz-grab;
+}
+[draggable]:active {
+	background: #eee; /* inherit from form? */
+	z-index: 2;
+	cursor: -moz-grabbing;
+	transform: rotate( 2deg );
+}
+.dragging {
+	opacity: .4;
+}
+
+/* drop targets */
+.questions > li.drop-target:not(.dragging)::before {
+	content: 'place question here';
+	color: #ccc;
+	text-align: center;
+	outline: .2em dashed #ccc;
+	display: block;
+	height: 1em;
+	padding: .5em;
+	background: #fff;
+}

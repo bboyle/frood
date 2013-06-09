@@ -1,0 +1,12 @@
+form {
+	background: #eee;
+}
+
+label {
+	display: block;
+}
+
+.questions > li {
+	padding: .5em;
+	border-radius: .3em;
+}
