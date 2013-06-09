@@ -3,7 +3,7 @@
 
 Given /I have access to the form builder/ do
 	# open the form builder
-	@browser.goto 'http://localhost:9009/frood.html'
+	@browser.goto 'http://localhost:9009/src/frood.html'
 
 	assert @browser.title.start_with? "Frood", "web page did not load"
 end

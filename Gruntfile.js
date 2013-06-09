@@ -86,7 +86,7 @@ module.exports = function( grunt ) {
 			cucumber: {
 				options: {
 					port: 9009,
-					base: 'src'
+					base: '.'
 				}
 			}
 		}
