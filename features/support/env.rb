@@ -5,15 +5,18 @@ require 'watir-webdriver'
 # Selenium::WebDriver::Chrome.path = PORTABLE_APPS + '\GoogleChromePortable\GoogleChromePortable.exe'
 
 profile = Selenium::WebDriver::Firefox::Profile.new
-profile.native_events = false
-browser = Watir::Browser.new :firefox, :profile => profile
-#browser = Watir::Browser.new :chrome
+profile.native_events = true
+caps = Selenium::WebDriver::Remote::Capabilities.firefox :firefox_profile => profile
+firefox = Watir::Browser.new :firefox, :desired_capabilities => caps
+
+# ie = Watir::Browser.new :ie
+# chrome = Watir::Browser.new :chrome
 
 
 Before do
-	@browser = browser
+	@browser = firefox
 end
  
 at_exit do
-	browser.close
+	firefox.close
 end
