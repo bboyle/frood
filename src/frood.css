@@ -17,7 +17,7 @@
 }
 
 /* drop targets */
-.questions > li.drop-target:not(.dragging)::before {
+.questions > li.drop-target:not(.no-drop)::before {
 	content: 'place question here';
 	color: #ccc;
 	text-align: center;

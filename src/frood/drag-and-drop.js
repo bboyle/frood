@@ -5,13 +5,19 @@
  * Copyright (c) 2013 Ben Boyle
  * Licensed under the MIT license.
  */
-(function( $ ) {
+
+/*global frood:true*/
+var frood = frood || {};
+frood.dragAndDrop = (function( $ ) {
 	'use strict';
 
 
 	// http://www.html5rocks.com/en/tutorials/dnd/basics/#toc-creating-dnd-content
 
-	var dragSrcEl;
+	var dragSrcEl,
+		module
+	;
+
 
 	// start dragging (css style)
 	function handleDragStart( e ) {
@@ -19,16 +25,24 @@
 		var question = $( this );
 
 		dragSrcEl = question;
+		question.addClass( 'no-drop' );
+		question.next().addClass( 'no-drop' );
 
 		e.dataTransfer.effectAllowed = 'move';
 		e.dataTransfer.setData( 'text/html', question.html() );
 	}
 
+
 	// fires once when dragging over drop targets (apply css)
 	function handleDragEnter() {
 		/*jshint validthis:true */
-		$( this ).addClass( 'drop-target' );
+		var target = $( this );
+		if ( ! target.hasClass( 'no-drop' )) {
+			$( this ).addClass( 'drop-target' );	
+		}
 	}
+
+
 	// suppress: fires continuously while dragging over target
 	function handleDragOver( e ) {
 		if ( e.preventDefault ) {
@@ -37,11 +51,15 @@
 		e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
 		return false;
 	}
+
+
 	// fires when leaving a drop target (reset css)
 	function handleDragLeave() {
 		/*jshint validthis:true */
 		$( this ).removeClass( 'drop-target' );
 	}
+
+
 	function handleDrop( e ) {
 		/*jshint validthis:true */
 		// this / e.target is current target element.
@@ -56,58 +74,35 @@
 		// See the section on the DataTransfer object.
 		return false;
 	}
+
+
 	function handleDragEnd() {
-		$( '.questions > li' ).removeClass( 'dragging drop-target' );
+		$( '.questions > li' ).removeClass( 'no-drop drop-target' );
 	}
 
 
-	$( '.questions > li' ).each(function() {
-		// setup drag and drop
-		this.addEventListener( 'dragstart', handleDragStart, false );
-		this.addEventListener( 'dragenter', handleDragEnter, false );
-		this.addEventListener( 'dragover', handleDragOver, false );
-		this.addEventListener( 'dragleave', handleDragLeave, false );
-		this.addEventListener( 'drop', handleDrop, false );
-		this.addEventListener( 'dragend', handleDragEnd, false );
-
-		$( this ).prop( 'draggable', true );
-	});
+	module = {};
 
 
-	// button handler
-	$( document ).on( 'click', 'button', function() {
-		var button = $( this );
+	module.init = function() {
+		$( '.questions > li' ).each(function() {
+			// setup drag and drop
+			this.addEventListener( 'dragstart', handleDragStart, false );
+			this.addEventListener( 'dragenter', handleDragEnter, false );
+			this.addEventListener( 'dragover', handleDragOver, false );
+			this.addEventListener( 'dragleave', handleDragLeave, false );
+			this.addEventListener( 'drop', handleDrop, false );
+			this.addEventListener( 'dragend', handleDragEnd, false );
 
-		switch ( button.text() ) {
-			case 'New form':
-				// create textarea for user to enter questions
-				(function() {
-					var textarea = $( '<textarea></textarea>' );
-					button.after( textarea );
-					textarea.before( 'List your questions below:' );
-					textarea.focus();
-					textarea.after( '<button>Create form</button>' );
-				}());
-			break;
-
-			case 'Create form':
-				// create a form
-				(function() {
-					var form = $( '<form></form>' ),
-						questions = $( 'textarea' ).val().split( '\n' );
-
-					$.each( questions, function( index, label ) {
-						var id = label.replace( /\s+/, '-' ).toLowerCase();
-						form.append( '<label for="' + id + '">' + label + '</label>' );
-						form.append( '<input id="' + id + '">' );
-					});
-
-					button.after( form );
-				}());
-			break;
-		}
-	});
+			$( this ).prop( 'draggable', true );
+		});
+	};
 
 
+	// on DOM ready
+	$( module.init() );
+
+	// return module
+	return module;
 
 }( jQuery ));
