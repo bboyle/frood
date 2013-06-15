@@ -22,6 +22,10 @@ frood.dragAndDrop = (function( $ ) {
 	// start dragging (css style)
 	function handleDragStart( e ) {
 		/*jshint validthis:true */
+
+		// stop nested handlers from firing on containing elements
+		e.stopImmediatePropagation();
+
 		var question = $( this );
 
 		dragSrcEl = question;
