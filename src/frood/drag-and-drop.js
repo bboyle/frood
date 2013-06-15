@@ -67,7 +67,7 @@ frood.dragAndDrop = (function( $ ) {
 			e.stopPropagation(); // stops the browser from redirecting.
 		}
 		// Don't do anything if dropping the same column we're dragging.
-		if ( dragSrcEl !== this ) {
+		if ( dragSrcEl[ 0 ] !== this ) {
 			// Set the source column's HTML to the HTML of the column we dropped on.
 			$( this ).before( dragSrcEl );
 		}
