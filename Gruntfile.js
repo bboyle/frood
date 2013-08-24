@@ -22,7 +22,7 @@ module.exports = function( grunt ) {
 				stripBanners: true
 			},
 			dist: {
-				src: [ 'src/<%= pkg.name %>.js' ],
+				src: [ 'src/frood/*.js' ],
 				dest: 'dist/<%= pkg.name %>.js'
 			},
 		},
@@ -45,7 +45,7 @@ module.exports = function( grunt ) {
 			}
 		},
 		qunit: {
-			files: [ 'test/**/*.html' ]
+			files: [ 'test/unit/*.html' ]
 		},
 		jshint: {
 			gruntfile: {
@@ -86,7 +86,7 @@ module.exports = function( grunt ) {
 			cucumber: {
 				options: {
 					port: 9009,
-					base: 'src'
+					base: '.'
 				}
 			}
 		}
@@ -103,8 +103,9 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-rcukes' );
 
 	// Default task.
-	grunt.registerTask( 'test', [ 'jshint', 'qunit', 'connect:cucumber', 'cucumber' ]);
+	grunt.registerTask( 'test', [ 'jshint', 'qunit' ]);
+	grunt.registerTask( 'uat', [ 'connect:cucumber', 'cucumber' ]);
 	grunt.registerTask( 'produce', [ 'clean', 'concat', 'uglify' ]);
-	grunt.registerTask( 'default', [ 'test', 'produce' ]);
+	grunt.registerTask( 'default', [ 'test', 'produce', 'uat' ]);
 
 };

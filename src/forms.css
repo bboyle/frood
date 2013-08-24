@@ -1,0 +1,17 @@
+form {
+	background: #eee;
+}
+
+input,
+textarea {
+	padding: .3em;
+}
+
+label {
+	display: block;
+}
+
+.questions > li {
+	padding: .5em;
+	border-radius: .3em;
+}

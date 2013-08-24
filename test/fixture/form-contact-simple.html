@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Simple contact form · Frood</title>
+	<link rel="stylesheet" href="../../src/forms.css">
+	<link rel="stylesheet" href="../../src/frood.css">
+</head>
+<body>
+
+	<h1>Simple contact form</h1>
+
+	<form action="#" method="POST">
+		<ol class="questions">
+			<li>
+				<label for="name">
+					<span class="label">Name</span>
+				</label>
+				<input id="name" name="name" size="30" required placeholder="Your name">
+			</li>
+			<li>
+				<label for="email">
+					<span class="label">Email</span>
+				</label>
+				<input type="email" id="email" name="email" size="40" required placeholder="your.name@example.com">
+			</li>
+			<li>
+				<label for="message">
+					<span class="label">Message</span>
+				</label>
+				<textarea id="message" rows="10" cols="40" required></textarea>
+			</li>
+		</ol>
+		
+	</form>
+
+
+
+	<script src="../../libs/jquery-loader.js"></script>
+	<script src="../../dist/frood.js"></script>
+
+	<footer>
+		<small><a href="https://github.com/bboyle/frood">https://github.com/bboyle/frood</a></small>
+	</footer>
+
+</body>
+</html>
