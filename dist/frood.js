@@ -1,4 +1,4 @@
-/*! Frood - v0.0.2 - 2013-06-10
+/*! Frood - v0.0.2 - 2013-08-24
 * https://github.com/bboyle/frood
 * Copyright (c) 2013 Ben Boyle; Licensed MIT */
 /*global frood:true*/
@@ -17,6 +17,10 @@ frood.dragAndDrop = (function( $ ) {
 	// start dragging (css style)
 	function handleDragStart( e ) {
 		/*jshint validthis:true */
+
+		// stop nested handlers from firing on containing elements
+		e.stopImmediatePropagation();
+
 		var question = $( this );
 
 		dragSrcEl = question;
@@ -62,7 +66,7 @@ frood.dragAndDrop = (function( $ ) {
 			e.stopPropagation(); // stops the browser from redirecting.
 		}
 		// Don't do anything if dropping the same column we're dragging.
-		if ( dragSrcEl !== this ) {
+		if ( dragSrcEl[ 0 ] !== this ) {
 			// Set the source column's HTML to the HTML of the column we dropped on.
 			$( this ).before( dragSrcEl );
 		}
@@ -102,8 +106,14 @@ frood.dragAndDrop = (function( $ ) {
 
 }( jQuery ));
 
-(function( $ ) {
+/*global frood:true*/
+var frood = frood || {};
+frood.newForm = (function( $ ) {
 	'use strict';
+
+	var questionMatcher = {},
+		module = {}
+	;
 
 
 	// http://www.html5rocks.com/en/tutorials/dnd/basics/#toc-creating-dnd-content
@@ -131,9 +141,30 @@ frood.dragAndDrop = (function( $ ) {
 						questions = $( 'textarea' ).val().split( '\n' );
 
 					$.each( questions, function( index, label ) {
-						var id = label.replace( /\s+/, '-' ).toLowerCase();
-						form.append( '<label for="' + id + '">' + label + '</label>' );
-						form.append( '<input id="' + id + '">' );
+						var id = label.replace( /\s+/, '-' ).toLowerCase(),
+							question
+						;
+
+						// do we know about this type of question?
+						$.each( questionMatcher, function( key, value ) {
+							if ( label.indexOf( key ) > -1 ) {
+								question = value;
+								// break loop
+								return false;
+							}
+						});
+
+						if ( question ) {
+							question = question.clone();
+							// change @id
+							question.find( 'input' ).attr( 'id', id );
+							question.find( 'label' ).attr( 'for', id ).text( label );
+
+						} else {
+							question = '<label for="' + id + '">' + label + '</label><input id="' + id + '">';
+						}
+
+						form.append( question );
 					});
 
 					button.after( form );
@@ -143,5 +174,14 @@ frood.dragAndDrop = (function( $ ) {
 	});
 
 
+	// configuration for new form
+	module.config = function( config ) {
+		if ( config.questionMatcher ) {
+			questionMatcher = config.questionMatcher;
+		}
+	};
+
+
+	return module;
 
 }( jQuery ));

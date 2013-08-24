@@ -24,10 +24,14 @@ end
 
 Then /I should see my form/ do
 
-	Watir::Wait.until { @browser.text.include? "Your name" }
+	Watir::Wait.until { @browser.text.include? 'Your name' }
 
 	# form contains 2 questions
-	assert @browser.label( :for => "your-name" ).exists?, 'Your name question missing'
-	assert @browser.label( :for => "your-email" ).exists?, 'Your email question missing'
+	assert @browser.label( :for => 'your-name' ).exists?, 'Your name question label missing'
+	assert @browser.label( :for => 'your-email' ).exists?, 'Your email question label missing'
+
+	# email question is email type
+	assert @browser.input( :id => 'your-email' ).exists?, 'Your email question input missing'
+	assert_equal 'email', @browser.input( :id => 'your-email' ).attribute_value( 'type' ), 'Your email question input missing'
 
 end

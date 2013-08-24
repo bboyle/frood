@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Frood—A really amazingly together way to build web forms.</title>
@@ -12,8 +12,24 @@
 
 
 
-	<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+	<aside id="frood-toolbox">
+		<ul>
+			<li>
+				<label for="frood-toolbox-email">Email</label>
+				<input id="frood-toolbox-email" type="email" name="email" size="40">
+			</li>
+		</ul>
+	</aside>
+
+	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 	<script src="../dist/frood.min.js"></script>
+	<script>
+		frood.newForm.config({
+			questionMatcher: {
+				'email': $( '#frood-toolbox-email' ).closest( 'li' )
+			}
+		});
+	</script>
 
 	<footer>
 		<small><a href="https://github.com/bboyle/frood">https://github.com/bboyle/frood</a></small>
