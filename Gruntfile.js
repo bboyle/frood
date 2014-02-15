@@ -11,10 +11,13 @@ module.exports = function( grunt ) {
 			'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
 			'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
 			' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
+
 		// Task configuration.
 		clean: {
 			files: [ 'dist' ]
 		},
+
+
 		// production pipeline tasks
 		concat: {
 			options: {
@@ -26,6 +29,7 @@ module.exports = function( grunt ) {
 				dest: 'dist/<%= pkg.name %>.js'
 			},
 		},
+
 		uglify: {
 			options: {
 				banner: '<%= banner %>'
@@ -35,7 +39,9 @@ module.exports = function( grunt ) {
 				dest: 'dist/<%= pkg.name %>.min.js'
 			},
 		},
-		// code quality tasks
+
+
+		// code quality and tests
 		cucumber: {
 			test: {
 				features: 'features'
@@ -44,9 +50,24 @@ module.exports = function( grunt ) {
 				profile: 'grunt'
 			}
 		},
+
+		casper: {
+			acceptance: {
+				options: {
+					test: true,
+					concise: true,
+					parallel: true
+				},
+				files: {
+					'test/acceptance/casper.xml' : [ 'test/acceptance/*.js' ]
+				}
+			}
+		},
+
 		qunit: {
 			files: [ 'test/unit/*.html' ]
 		},
+
 		jshint: {
 			gruntfile: {
 				options: {
@@ -67,20 +88,22 @@ module.exports = function( grunt ) {
 				src: [ 'test/**/*.js' ]
 			},
 		},
+
 		watch: {
 			gruntfile: {
 				files: '<%= jshint.gruntfile.src %>',
 				tasks: [ 'jshint:gruntfile' ]
 			},
-			src: {
-				files: '<%= jshint.src.src %>',
-				tasks: [ 'jshint:src', 'qunit' ]
-			},
 			test: {
-				files: '<%= jshint.test.src %>',
-				tasks: [ 'jshint:test', 'qunit' ]
+				files: [
+					'<%= jshint.src.src %>',
+					'<%= jshint.test.src %>',
+				],
+				tasks: [ 'test' ]
 			},
 		},
+
+
 		// local server
 		connect: {
 			cucumber: {
@@ -92,6 +115,7 @@ module.exports = function( grunt ) {
 		}
 	});
 
+
 	// These plugins provide necessary tasks.
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
 	grunt.loadNpmTasks( 'grunt-contrib-concat' );
@@ -101,9 +125,11 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-contrib-connect' );
 	grunt.loadNpmTasks( 'grunt-rcukes' );
+	grunt.loadNpmTasks( 'grunt-casper' );
+
 
 	// Default task.
-	grunt.registerTask( 'test', [ 'jshint', 'qunit' ]);
+	grunt.registerTask( 'test', [ 'jshint', 'qunit', 'casper' ]);
 	grunt.registerTask( 'uat', [ 'connect:cucumber', 'cucumber' ]);
 	grunt.registerTask( 'produce', [ 'clean', 'concat', 'uglify' ]);
 	grunt.registerTask( 'default', [ 'test', 'produce', 'uat' ]);
