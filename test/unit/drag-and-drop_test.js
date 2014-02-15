@@ -1,14 +1,8 @@
-/*global frood*/
 (function( $ ) {
 	'use strict';
 
 
-	var lifecycle = {
-		setup: frood.dragAndDrop.init
-	};
-
-
-	module( 'Drag and drop', lifecycle );
+	module( 'Drag and drop' );
 
 
 	test( 'draggable property', 1, function() {

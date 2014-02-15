@@ -104,7 +104,7 @@ frood.dragAndDrop = (function( $ ) {
 
 
 	// on DOM ready
-	$( module.init() );
+	$( module.init );
 
 	// return module
 	return module;
